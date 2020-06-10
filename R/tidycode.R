@@ -7,24 +7,27 @@
 #' @param indent how many spaces for one indent
 #' @param outfile the file name of the file containing formatted code
 #' @return formatted code, optionally written to `outfile`
-#' @author Lushi Cai
+#' @author Tom Elliott
 #' @export
 tidy_all_code <- function(x, width = 80, indent = 4, outfile,
                           incl_library = TRUE) {
+
     if (length(x) == 1 && file.exists(x))
         x <- readLines(x)
 
-    allcode <- getText(x, incl_library)
-    strvector <- sapply(allcode, tidy_code, width = width, indent = indent)
-    splist <- strsplit(unlist(strvector), "\n")
-    splist <- unlist(splist, use.names = FALSE)
-    splist <- splist[splist != ""]
+    styler::style_text(x)
 
-    if (!missing(outfile)) {
-        return(write(splist, outfile))
-    }
+    # allcode <- getText(x, incl_library)
+    # strvector <- sapply(allcode, tidy_code, width = width, indent = indent)
+    # splist <- strsplit(unlist(strvector), "\n")
+    # splist <- unlist(splist, use.names = FALSE)
+    # splist <- splist[splist != ""]
 
-    splist
+    # if (!missing(outfile)) {
+    #     return(write(splist, outfile))
+    # }
+
+    # splist
 }
 
 ### tidy a single piece of code
